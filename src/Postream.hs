@@ -53,8 +53,20 @@ class Monad m => MonadTerm m where
   getLn :: m String
   putLn :: String -> m ()
 
+myProgram :: (MonadTerm m) => m ()
+myProgram = do
+  a <- getLn
+  b <- getLn
+  return ()
+
+
+instance MonadTerm IO where
+  getLn = return "test"
+  putLn s = return ()
+
 main :: IO ()
 main = do
+  myProgram
   args <- getArgs
   start args 
   where 
